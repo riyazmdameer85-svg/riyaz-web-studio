@@ -1,4 +1,4 @@
-import { themes } from "../../lib/themes";
+import { themes } from "../lib/themes";
 
 export default function TemplateRenderer({ data, theme: themeKey }) {
   const theme = themes[themeKey] || themes.other;
