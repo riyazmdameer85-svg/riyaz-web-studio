@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { supabaseBrowser } from "../../lib/supabase";
+import { supabaseBrowser } from "@/lib/supabase";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
