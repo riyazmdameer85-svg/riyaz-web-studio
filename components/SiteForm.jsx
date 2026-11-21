@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { industries } from "../../lib/themes";
-import { supabaseBrowser } from "../../lib/supabase";
+import { industries } from "../lib/themes";
+import { supabaseBrowser } from "../lib/supabase";
 
 export default function SiteForm({ onSubmit, loading }) {
   const [form, setForm] = useState({
