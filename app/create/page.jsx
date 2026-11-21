@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import SiteForm from "@/components/SiteForm";
-import TemplateRenderer from "@/components/TemplateRenderer";
+import SiteForm from "../../components/SiteForm";
+import TemplateRenderer from "../../components/TemplateRenderer";
 
 export default function CreatePage() {
   const [site, setSite] = useState(null);
