@@ -15,8 +15,8 @@ export default function SiteForm({ onSubmit, loading }) {
     address: "",
     logo_url: "",
     cover_url: "",
-    map_url: "",          // NEW
-    whatsapp_msg: "Hi, I'd like to book an appointment!", // NEW
+    map_url: "",
+    whatsapp_msg: "Hi, I'd like to book an appointment!",
   });
   
   const [uploading, setUploading] = useState(false);
@@ -46,50 +46,89 @@ export default function SiteForm({ onSubmit, loading }) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-12 px-6">
-      <h1 className="text-3xl font-bold text-slate-900">Create Your Website</h1>
-      <form onSubmit={submit} className="mt-8 space-y-5 bg-white p-8 rounded-2xl shadow">
-        
-        {/* ... (Keep your Business Name, Industry, Tagline, About, Services fields here as they are) ... */}
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">Business Name *</label>
-          <input value={form.businessName} onChange={set("businessName")} className="w-full border rounded-lg px-4 py-2" required />
-        </div>
-        
-        {/* ... (Add all your existing fields back in here) ... */}
+    // CREATIVE BACKGROUND ADDED HERE
+    <div className="min-h-screen bg-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black py-12 px-6">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-3xl font-bold text-white mb-2">Create Your Website</h1>
+        <p className="text-slate-400 mb-8">Fill in your details — we'll build the page instantly.</p>
 
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">High-Res Cover Image</label>
-          <select value={form.cover_url} onChange={set("cover_url")} className="w-full border rounded-lg px-4 py-2">
-            <option value="">None (Use Theme Color)</option>
-            <option value="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80">Modern Office</option>
-            <option value="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80">Cafe / Restaurant</option>
-            <option value="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80">Healthcare / Clinic</option>
-            <option value="https://images.unsplash.com/photo-1599643478514-4a420a5e17bc?auto=format&fit=crop&w=1920&q=80">Jewellery / Retail</option>
-          </select>
-        </div>
+        <form onSubmit={submit} className="space-y-5 bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl">
+          
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Business Name *</label>
+            <input value={form.businessName} onChange={set("businessName")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Spice Garden Restaurant" required />
+          </div>
 
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">Upload Logo (Optional)</label>
-          <input type="file" accept="image/*" onChange={handleLogoUpload} className="w-full border rounded-lg px-4 py-2" />
-          {uploading && <p className="text-sm text-sky-600 mt-1">Uploading...</p>}
-        </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Industry</label>
+            <select value={form.industry} onChange={set("industry")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none">
+              {industries.map((i) => <option key={i.key} value={i.key}>{i.name}</option>)}
+            </select>
+          </div>
 
-        {/* NEW FIELDS */}
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">Google Maps Link (Optional)</label>
-          <input value={form.map_url} onChange={set("map_url")} className="w-full border rounded-lg px-4 py-2" placeholder="Paste your Google Maps share link here" />
-        </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Tagline (optional — AI will write if blank)</label>
+            <input value={form.tagline} onChange={set("tagline")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Authentic flavours since 1995" />
+          </div>
 
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">Default WhatsApp Message</label>
-          <input value={form.whatsapp_msg} onChange={set("whatsapp_msg")} className="w-full border rounded-lg px-4 py-2" placeholder="Hi, I'd like to book an appointment!" />
-        </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">About (optional)</label>
+            <textarea value={form.about} onChange={set("about")} rows={3} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Short description of your business" />
+          </div>
 
-        <button disabled={loading || uploading} className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-lg disabled:opacity-50">
-          {loading ? "Generating..." : "Generate My Website →"}
-        </button>
-      </form>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Services / Products (comma separated) *</label>
+            <input value={form.services} onChange={set("services")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Biryani, Kebabs, Desserts" required />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Phone</label>
+              <input value={form.phone} onChange={set("phone")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="+91 98765 43210" />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">Email</label>
+              <input value={form.email} onChange={set("email")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="hello@business.com" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Address</label>
+            <input value={form.address} onChange={set("address")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Street, City, State" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">High-Res Cover Image</label>
+            <select value={form.cover_url} onChange={set("cover_url")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="">None (Use Theme Color)</option>
+              <option value="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80">Modern Office</option>
+              <option value="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1920&q=80">Cafe / Restaurant</option>
+              <option value="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80">Healthcare / Clinic</option>
+              <option value="https://images.unsplash.com/photo-1599643478514-4a420a5e17bc?auto=format&fit=crop&w=1920&q=80">Jewellery / Retail</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Upload Logo (Optional)</label>
+            <input type="file" accept="image/*" onChange={handleLogoUpload} className="w-full border border-slate-300 rounded-lg px-4 py-2" />
+            {uploading && <p className="text-sm text-sky-600 mt-1">Uploading...</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Google Maps Link (Optional)</label>
+            <input value={form.map_url} onChange={set("map_url")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Paste your Google Maps share link here" />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Default WhatsApp Message</label>
+            <input value={form.whatsapp_msg} onChange={set("whatsapp_msg")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" />
+          </div>
+
+          <button disabled={loading || uploading} className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-lg disabled:opacity-50 transition-colors">
+            {loading ? "Generating..." : "Generate My Website →"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
