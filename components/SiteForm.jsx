@@ -17,6 +17,8 @@ export default function SiteForm({ onSubmit, loading }) {
     cover_url: "",
     map_url: "",
     whatsapp_msg: "Hi, I'd like to book an appointment!",
+    testimonials: "", // NEW
+    pricing: "", // NEW
   });
   
   const [uploading, setUploading] = useState(false);
@@ -46,7 +48,6 @@ export default function SiteForm({ onSubmit, loading }) {
   }
 
   return (
-    // CREATIVE BACKGROUND ADDED HERE
     <div className="min-h-screen bg-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black py-12 px-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-2">Create Your Website</h1>
@@ -67,7 +68,7 @@ export default function SiteForm({ onSubmit, loading }) {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Tagline (optional — AI will write if blank)</label>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Tagline (optional)</label>
             <input value={form.tagline} onChange={set("tagline")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Authentic flavours since 1995" />
           </div>
 
@@ -81,20 +82,15 @@ export default function SiteForm({ onSubmit, loading }) {
             <input value={form.services} onChange={set("services")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Biryani, Kebabs, Desserts" required />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Phone</label>
-              <input value={form.phone} onChange={set("phone")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="+91 98765 43210" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Email</label>
-              <input value={form.email} onChange={set("email")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="hello@business.com" />
-            </div>
+          {/* NEW FIELDS FOR PHASE 2 */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Pricing / Menu (optional)</label>
+            <textarea value={form.pricing} onChange={set("pricing")} rows={3} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Chicken Biryani - ₹250, Veg Biryani - ₹180" />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Address</label>
-            <input value={form.address} onChange={set("address")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Street, City, State" />
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Testimonials (optional)</label>
+            <textarea value={form.testimonials} onChange={set("testimonials")} rows={3} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder='e.g. "Best food in town!" - Rahul, "Great service." - Priya' />
           </div>
 
           <div>
@@ -117,11 +113,6 @@ export default function SiteForm({ onSubmit, loading }) {
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1">Google Maps Link (Optional)</label>
             <input value={form.map_url} onChange={set("map_url")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Paste your Google Maps share link here" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Default WhatsApp Message</label>
-            <input value={form.whatsapp_msg} onChange={set("whatsapp_msg")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" />
           </div>
 
           <button disabled={loading || uploading} className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-lg disabled:opacity-50 transition-colors">
