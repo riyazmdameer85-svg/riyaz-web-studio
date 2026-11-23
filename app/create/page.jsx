@@ -58,6 +58,8 @@ async function handlePublish() {
           logo_url: site.logo_url,
           map_url: site.map_url,
           whatsapp_msg: site.whatsapp_msg,
+          pricing: site.pricing,
+          testimonials: site.testimonials,
         },
         content: site.content,
       }),
