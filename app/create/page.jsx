@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 import { useState } from "react";
 import SiteForm from "@/components/SiteForm";
 import TemplateRenderer from "@/components/TemplateRenderer";
@@ -8,10 +8,14 @@ export default function CreatePage() {
   const [loading, setLoading] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [publishedUrl, setPublishedUrl] = useState(null);
+  
+  // We add this to save the form data so we can edit it
+  const [savedFormData, setSavedFormData] = useState(null);
 
   async function handleGenerate(formData) {
     setLoading(true);
     setPublishedUrl(null);
+    setSavedFormData(formData); // Save the data here!
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
@@ -25,63 +29,63 @@ export default function CreatePage() {
     }
     setLoading(false);
   }
-async function handlePublish() {
-  setPublishing(true);
-  try {
-    // 1. Force grab the logged-in user's ID
-    const { supabaseBrowser } = await import("../../lib/supabase");
-    const supabase = supabaseBrowser();
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
-    if (authError || !user) {
-      throw new Error("You must be logged in to publish. Please log out and log back in.");
-    }
 
-    // 2. Send the request with the user_id attached
-    const res = await fetch("/api/sites", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        user_id: user.id, // <--- This is the magic key
-        businessName: site.businessName,
-        industry: site.industry,
-        formData: {
+  async function handlePublish() {
+    setPublishing(true);
+    try {
+      const { supabaseBrowser } = await import("../../lib/supabase");
+      const supabase = supabaseBrowser();
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        throw new Error("You must be logged in to publish. Please log out and log back in.");
+      }
+
+      const res = await fetch("/api/sites", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: user.id,
           businessName: site.businessName,
           industry: site.industry,
-          phone: site.phone,
-          email: site.email,
-          address: site.address,
-          services: site.services,
-          tagline: site.tagline,
-          about: site.about,
-          cover_url: site.cover_url,
-          logo_url: site.logo_url,
-          map_url: site.map_url,
-          whatsapp_msg: site.whatsapp_msg,
-          pricing: site.pricing,
-          testimonials: site.testimonials,
-        },
-        content: site.content,
-      }),
-    });
-    
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    setPublishedUrl(`/site/${data.slug}`);
-  } catch (e) {
-    alert("Publish failed: " + e.message);
+          formData: {
+            businessName: site.businessName,
+            industry: site.industry,
+            phone: site.phone,
+            email: site.email,
+            address: site.address,
+            services: site.services,
+            tagline: site.tagline,
+            about: site.about,
+            cover_url: site.cover_url,
+            logo_url: site.logo_url,
+            map_url: site.map_url,
+            whatsapp_msg: site.whatsapp_msg,
+            pricing: site.pricing,
+            testimonials: site.testimonials,
+          },
+          content: site.content,
+        }),
+      });
+      
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      setPublishedUrl(`/site/${data.slug}`);
+    } catch (e) {
+      alert("Publish failed: " + e.message);
+    }
+    setPublishing(false);
   }
-  setPublishing(false);
-}
-  
-  if (!site) return <SiteForm onSubmit={handleGenerate} loading={loading} />;
+
+  // When clicking Edit, we pass the savedFormData back into the SiteForm
+  if (!site) return <SiteForm onSubmit={handleGenerate} loading={loading} initialData={savedFormData} />;
 
   return (
     <div>
       <div className="sticky top-0 z-50 bg-slate-900 text-white flex flex-wrap gap-3 justify-between items-center px-6 py-3">
         <span className="font-semibold">Preview — Riyaz Web Studio</span>
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => setSite(null)} className="bg-slate-700 px-4 py-2 rounded-lg text-sm">← Edit</button>
+          <button onClick={() => { setSite(null); setPublishedUrl(null); }} className="bg-slate-700 px-4 py-2 rounded-lg text-sm">← Edit</button>
           <button onClick={() => window.print()} className="bg-slate-700 px-4 py-2 rounded-lg text-sm">Print</button>
           {!publishedUrl ? (
             <button onClick={handlePublish} disabled={publishing} className="bg-emerald-500 hover:bg-emerald-400 px-4 py-2 rounded-lg text-sm font-bold disabled:opacity-50">
