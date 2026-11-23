@@ -77,6 +77,16 @@ export default function SiteForm({ onSubmit, loading }) {
             <textarea value={form.about} onChange={set("about")} rows={3} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Short description of your business" />
           </div>
 
+         <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Phone Number</label>
+            <input value={form.phone} onChange={set("phone")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. +91 98765 43210" />
+         </div>
+
+         <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+            <input value={form.email} onChange={set("email")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. hello@mycafe.com" />
+         </div>
+         
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1">Services / Products (comma separated) *</label>
             <input value={form.services} onChange={set("services")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Biryani, Kebabs, Desserts" required />
