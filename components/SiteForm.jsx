@@ -114,6 +114,10 @@ export default function SiteForm({ onSubmit, loading }) {
             <label className="block text-sm font-semibold text-slate-700 mb-1">Google Maps Link (Optional)</label>
             <input value={form.map_url} onChange={set("map_url")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Paste your Google Maps share link here" />
           </div>
+         <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Default WhatsApp Message</label>
+            <input value={form.whatsapp_msg} onChange={set("whatsapp_msg")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Hi, I'd like to book an appointment!" />
+         </div>
 
           <button disabled={loading || uploading} className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-lg disabled:opacity-50 transition-colors">
             {loading ? "Generating..." : "Generate My Website →"}
