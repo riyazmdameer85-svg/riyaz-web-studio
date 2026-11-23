@@ -1,7 +1,7 @@
- import { supabase } from "../../lib/supabase";
+ import { supabase } from "@/lib/supabase";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { makeSlug } from "../../lib/supabase";
+import { makeSlug } from "@/lib/supabase";
 
 async function getUser() {
   const cookieStore = cookies();
