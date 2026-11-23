@@ -6,6 +6,10 @@ export default function TemplateRenderer({ data, theme: themeKey }) {
   const descriptions = data.serviceDescriptions || [];
   const faqs = data.faqs || [];
 
+  // Split the text areas into arrays by line breaks
+  const pricingItems = data.pricing ? data.pricing.split("\n").filter(Boolean) : [];
+  const testimonialItems = data.testimonials ? data.testimonials.split("\n").filter(Boolean) : [];
+
   const cleanPhone = data.phone ? data.phone.replace(/[^0-9]/g, "") : "";
   const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(data.whatsapp_msg || "Hello!")}`;
 
@@ -38,7 +42,7 @@ export default function TemplateRenderer({ data, theme: themeKey }) {
         </div>
       </section>
 
-      {/* ABOUT - Creative Dot Background */}
+      {/* ABOUT */}
       <section className="px-8 py-20 text-center relative" style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
         <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-sm border border-slate-100">
           <h2 className="text-3xl font-bold" style={{ color: theme.primary }}>About Us</h2>
@@ -61,6 +65,40 @@ export default function TemplateRenderer({ data, theme: themeKey }) {
           </div>
         </div>
       </section>
+
+      {/* NEW: PRICING / MENU SECTION */}
+      {pricingItems.length > 0 && (
+        <section className="bg-slate-900 text-white px-8 py-20">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-10" style={{ color: theme.accent }}>Pricing / Menu</h2>
+            <div className="space-y-4">
+              {pricingItems.map((item, i) => {
+                const parts = item.split("-");
+                return (
+                  <div key={i} className="flex justify-between items-end border-b border-slate-700 pb-2">
+                    <span className="text-lg">{parts[0]}</span>
+                    {parts[1] && <span className="font-bold text-xl" style={{ color: theme.accent }}>{parts[1]}</span>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* NEW: TESTIMONIALS SECTION */}
+      {testimonialItems.length > 0 && (
+        <section className="px-8 py-20 max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-12" style={{ color: theme.primary }}>What Our Customers Say</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonialItems.map((t, i) => (
+              <div key={i} className="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 italic text-slate-600">
+                "{t}"
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* FAQ SECTION */}
       {faqs.length > 0 && (
