@@ -87,6 +87,11 @@ export default function SiteForm({ onSubmit, loading }) {
             <input value={form.email} onChange={set("email")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. hello@mycafe.com" />
          </div>
          
+         <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">Address</label>
+            <input value={form.address} onChange={set("address")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Street, City, State" />
+         </div>
+         
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1">Services / Products (comma separated) *</label>
             <input value={form.services} onChange={set("services")} className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-sky-500 outline-none" placeholder="e.g. Biryani, Kebabs, Desserts" required />
