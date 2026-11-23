@@ -1,7 +1,7 @@
-import { supabase } from "@/lib/supabase";
+ import { supabase } from "../../lib/supabase";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { makeSlug } from "@/lib/supabase";
+import { makeSlug } from "../../lib/supabase";
 
 async function getUser() {
   const cookieStore = cookies();
@@ -46,7 +46,7 @@ export async function POST(req) {
       form_data: formData,
       content,
       published: true,
-      user_id: user.id,
+      user_id: user.id, // <--- This forces the user ID in!
     })
     .select()
     .single();
