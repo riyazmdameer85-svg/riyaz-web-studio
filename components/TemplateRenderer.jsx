@@ -139,6 +139,50 @@ export default function TemplateRenderer({ data, theme: themeKey }) {
           ></iframe>
         </div>
       </section>
+     
+        {/* LEAD CAPTURE FORM */}
+        <section className="bg-slate-900 px-8 py-20">
+        <div className="max-w-xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-white mb-2">Send Us a Message</h2>
+        <p className="text-slate-400 mb-8">We'll get back to you as soon as possible.</p>
+    
+      <form 
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const formData = {
+          name: e.target.name.value,
+          email: e.target.email.value,
+          message: e.target.message.value,
+          site_slug: data.slug || window.location.pathname.split('/').pop()
+        };
+        
+        const res = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+        
+        if (res.ok) {
+          alert("Message sent successfully!");
+          e.target.reset();
+        } else {
+          alert("Failed to send message.");
+        }
+      }}
+      className="space-y-4 text-left"
+    >
+      <input name="name" required placeholder="Your Name" className="w-full bg-slate-800 text-white border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500" />
+      <input name="email" type="email" required placeholder="Your Email" className="w-full bg-slate-800 text-white border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500" />
+      <textarea name="message" required rows="4" placeholder="How can we help you?" className="w-full bg-slate-800 text-white border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-sky-500"></textarea>
+      <button type="submit" style={{ background: theme.accent }} className="w-full font-bold text-slate-900 py-3 rounded-lg hover:opacity-90 transition-opacity">
+        Send Message
+      </button>
+    </form>
+  </div>
+</section>
+
+{/* FOOTER */}
+<footer style={{ background: theme.primary }} className="text-white text-center py-8 text-sm">
 
       {/* FOOTER */}
       <footer style={{ background: theme.primary }} className="text-white text-center py-8 text-sm">
