@@ -67,10 +67,11 @@ export default function Dashboard() {
                 <p className="text-sm text-slate-500 capitalize">{s.industry}</p>
                 <p className="text-xs text-slate-400 mt-2">/site/{s.slug}</p>
                 <p className="text-xs text-slate-400">{new Date(s.created_at).toLocaleDateString()}</p>
-                <div className="flex gap-2 mt-4">
-                  <a href={`/site/${s.slug}`} target="_blank" className="flex-1 text-center bg-sky-600 text-white py-2 rounded-lg text-sm font-semibold">View</a>
-                  <button onClick={() => remove(s.id)} className="bg-red-100 text-red-700 py-2 px-3 rounded-lg text-sm font-semibold">Delete</button>
-                </div>
+                 <div className="flex gap-2 mt-4">
+                <a href={`/site/${s.slug}`} target="_blank" className="flex-1 text-center bg-sky-600 text-white py-2 rounded-lg text-sm font-semibold">View</a>
+                <a href={`/site/${s.slug}/qr`} target="_blank" className="bg-slate-800 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:bg-slate-700">QR</a>
+                <button onClick={() => remove(s.id)} className="bg-red-100 text-red-700 py-2 px-3 rounded-lg text-sm font-semibold">Delete</button>
+              </div>
               </div>
             ))}
           </div>
