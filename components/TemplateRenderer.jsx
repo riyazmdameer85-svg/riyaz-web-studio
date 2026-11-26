@@ -180,10 +180,7 @@ export default function TemplateRenderer({ data, theme: themeKey }) {
     </form>
   </div>
 </section>
-
-{/* FOOTER */}
-<footer style={{ background: theme.primary }} className="text-white text-center py-8 text-sm">
-
+ 
       {/* FOOTER */}
       <footer style={{ background: theme.primary }} className="text-white text-center py-8 text-sm">
         <p>© {new Date().getFullYear()} {data.businessName}. All rights reserved.</p>
